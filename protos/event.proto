@@ -1,0 +1,5 @@
+syntax = "proto3";
+
+package event;
+
+option go_package = "github.com/mainheartng/event_project/protos;protos";

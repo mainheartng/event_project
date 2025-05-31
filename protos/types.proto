@@ -1,0 +1,94 @@
+syntax = "proto3";
+
+package types;
+
+option go_package = "github.com/mainheartng/event_project/protos;protos";
+
+import "google/protobuf/timestamp.proto";
+// import "google/protobuf/struct.proto";
+
+enum Status {
+  STATUS_UNSPECIFIED = 0;
+  STATUS_ACTIVE = 1;
+  STATUS_INACTIVE = 2;
+  STATUS_PENDING = 3;
+  STATUS_SUSPENDED = 4;
+  STATUS_DELETED = 5;
+}
+
+// Common pagination
+message PageRequest {
+  int32 page = 1;
+  int32 page_size = 2;
+  string sort_by = 3;
+  string sort_order = 4; // ASC, DESC
+}
+
+message PageResponse {
+  int32 total_count = 1;
+  int32 page = 2;
+  int32 page_size = 3;
+  bool has_more = 4;
+}
+
+enum EventState {
+  STATE_SCHEDULED = 0;
+  STATE_PUBLISHED = 1;
+  STATE_DRAFT = 2;
+}
+
+enum EventStatus {
+  STATUS_STARTED = 0;
+  STATUS_ENDED = 1;
+  STATUS_SCHEDULED = 2;
+}
+
+enum AttendanceType {
+  TYPE_INVITED = 0;
+  TYPE_CREATOR = 1;
+  TYPE_ORGANIC = 2;
+}
+
+enum AttendanceStatus {
+  STATUS_APPROVED = 0;
+  STATUS_DENIED = 1;
+  STATUS_REQUESTED = 2;
+}
+
+enum AttendanceEnum {
+  ENUM_ATTENDING = 0;
+  ENUM_CHECKEDIN = 1;
+}
+
+message User {
+  string id = 1;
+  string email =2;
+  string first_name = 3;
+  string last_name= 4;
+  string phone_number = 5;
+  google.protobuf.Timestamp created_at = 6;
+  google.protobuf.Timestamp updated_at = 7;
+}
+
+message Event {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  EventState state = 4;
+  EventStatus status = 5;
+  google.protobuf.Timestamp created_at = 6;
+  google.protobuf.Timestamp updated_at = 7;
+}
+
+message Attendance {
+  string id = 1;
+  string user_id = 2;
+  string event_id = 3;
+  AttendanceType type = 4;
+  AttendanceStatus status = 5;
+  AttendanceEnum attendance = 6;
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp updated_at = 8;
+}
+
+
