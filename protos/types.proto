@@ -56,8 +56,7 @@ enum AttendanceStatus {
 }
 
 enum AttendanceEnum {
-  ENUM_ATTENDING = 0;
-  ENUM_CHECKEDIN = 1;
+  ENUM_CHECKEDIN = 0;
 }
 
 message User {

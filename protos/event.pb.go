@@ -10,6 +10,7 @@ import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
+	sync "sync"
 	unsafe "unsafe"
 )
 
@@ -20,19 +21,657 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type CreateEventRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Description   string                 `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateEventRequest) Reset() {
+	*x = CreateEventRequest{}
+	mi := &file_protos_event_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateEventRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateEventRequest) ProtoMessage() {}
+
+func (x *CreateEventRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_protos_event_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateEventRequest.ProtoReflect.Descriptor instead.
+func (*CreateEventRequest) Descriptor() ([]byte, []int) {
+	return file_protos_event_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *CreateEventRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *CreateEventRequest) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+type CreateEventResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Event         *Event                 `protobuf:"bytes,1,opt,name=event,proto3" json:"event,omitempty"`
+	Success       bool                   `protobuf:"varint,2,opt,name=success,proto3" json:"success,omitempty"`
+	Message       string                 `protobuf:"bytes,3,opt,name=message,proto3" json:"message,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateEventResponse) Reset() {
+	*x = CreateEventResponse{}
+	mi := &file_protos_event_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateEventResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateEventResponse) ProtoMessage() {}
+
+func (x *CreateEventResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_protos_event_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateEventResponse.ProtoReflect.Descriptor instead.
+func (*CreateEventResponse) Descriptor() ([]byte, []int) {
+	return file_protos_event_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *CreateEventResponse) GetEvent() *Event {
+	if x != nil {
+		return x.Event
+	}
+	return nil
+}
+
+func (x *CreateEventResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+func (x *CreateEventResponse) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+type UpdateEventRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Description   string                 `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateEventRequest) Reset() {
+	*x = UpdateEventRequest{}
+	mi := &file_protos_event_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateEventRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateEventRequest) ProtoMessage() {}
+
+func (x *UpdateEventRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_protos_event_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateEventRequest.ProtoReflect.Descriptor instead.
+func (*UpdateEventRequest) Descriptor() ([]byte, []int) {
+	return file_protos_event_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *UpdateEventRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *UpdateEventRequest) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+type UpdateEventResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Event         *Event                 `protobuf:"bytes,1,opt,name=event,proto3" json:"event,omitempty"`
+	Success       bool                   `protobuf:"varint,2,opt,name=success,proto3" json:"success,omitempty"`
+	Message       string                 `protobuf:"bytes,3,opt,name=message,proto3" json:"message,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateEventResponse) Reset() {
+	*x = UpdateEventResponse{}
+	mi := &file_protos_event_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateEventResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateEventResponse) ProtoMessage() {}
+
+func (x *UpdateEventResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_protos_event_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateEventResponse.ProtoReflect.Descriptor instead.
+func (*UpdateEventResponse) Descriptor() ([]byte, []int) {
+	return file_protos_event_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *UpdateEventResponse) GetEvent() *Event {
+	if x != nil {
+		return x.Event
+	}
+	return nil
+}
+
+func (x *UpdateEventResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+func (x *UpdateEventResponse) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+type DeleteEventRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Description   string                 `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteEventRequest) Reset() {
+	*x = DeleteEventRequest{}
+	mi := &file_protos_event_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteEventRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteEventRequest) ProtoMessage() {}
+
+func (x *DeleteEventRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_protos_event_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteEventRequest.ProtoReflect.Descriptor instead.
+func (*DeleteEventRequest) Descriptor() ([]byte, []int) {
+	return file_protos_event_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *DeleteEventRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *DeleteEventRequest) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+type DeleteEventResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	Message       string                 `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteEventResponse) Reset() {
+	*x = DeleteEventResponse{}
+	mi := &file_protos_event_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteEventResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteEventResponse) ProtoMessage() {}
+
+func (x *DeleteEventResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_protos_event_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteEventResponse.ProtoReflect.Descriptor instead.
+func (*DeleteEventResponse) Descriptor() ([]byte, []int) {
+	return file_protos_event_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *DeleteEventResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+func (x *DeleteEventResponse) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+type GetEventByIdRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetEventByIdRequest) Reset() {
+	*x = GetEventByIdRequest{}
+	mi := &file_protos_event_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetEventByIdRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetEventByIdRequest) ProtoMessage() {}
+
+func (x *GetEventByIdRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_protos_event_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetEventByIdRequest.ProtoReflect.Descriptor instead.
+func (*GetEventByIdRequest) Descriptor() ([]byte, []int) {
+	return file_protos_event_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *GetEventByIdRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+type GetEventByIdResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Event         *Event                 `protobuf:"bytes,1,opt,name=event,proto3" json:"event,omitempty"`
+	Success       bool                   `protobuf:"varint,2,opt,name=success,proto3" json:"success,omitempty"`
+	Message       string                 `protobuf:"bytes,3,opt,name=message,proto3" json:"message,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetEventByIdResponse) Reset() {
+	*x = GetEventByIdResponse{}
+	mi := &file_protos_event_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetEventByIdResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetEventByIdResponse) ProtoMessage() {}
+
+func (x *GetEventByIdResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_protos_event_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetEventByIdResponse.ProtoReflect.Descriptor instead.
+func (*GetEventByIdResponse) Descriptor() ([]byte, []int) {
+	return file_protos_event_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *GetEventByIdResponse) GetEvent() *Event {
+	if x != nil {
+		return x.Event
+	}
+	return nil
+}
+
+func (x *GetEventByIdResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+func (x *GetEventByIdResponse) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+type EventAttendaceRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	EventId       string                 `protobuf:"bytes,2,opt,name=event_id,json=eventId,proto3" json:"event_id,omitempty"`
+	Attendance    AttendanceType         `protobuf:"varint,3,opt,name=attendance,proto3,enum=types.AttendanceType" json:"attendance,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *EventAttendaceRequest) Reset() {
+	*x = EventAttendaceRequest{}
+	mi := &file_protos_event_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *EventAttendaceRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EventAttendaceRequest) ProtoMessage() {}
+
+func (x *EventAttendaceRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_protos_event_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EventAttendaceRequest.ProtoReflect.Descriptor instead.
+func (*EventAttendaceRequest) Descriptor() ([]byte, []int) {
+	return file_protos_event_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *EventAttendaceRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *EventAttendaceRequest) GetEventId() string {
+	if x != nil {
+		return x.EventId
+	}
+	return ""
+}
+
+func (x *EventAttendaceRequest) GetAttendance() AttendanceType {
+	if x != nil {
+		return x.Attendance
+	}
+	return AttendanceType_TYPE_INVITED
+}
+
+type EventAttendaceResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Attendance    *Attendance            `protobuf:"bytes,1,opt,name=attendance,proto3" json:"attendance,omitempty"`
+	Success       bool                   `protobuf:"varint,2,opt,name=success,proto3" json:"success,omitempty"`
+	Message       string                 `protobuf:"bytes,3,opt,name=message,proto3" json:"message,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *EventAttendaceResponse) Reset() {
+	*x = EventAttendaceResponse{}
+	mi := &file_protos_event_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *EventAttendaceResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EventAttendaceResponse) ProtoMessage() {}
+
+func (x *EventAttendaceResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_protos_event_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EventAttendaceResponse.ProtoReflect.Descriptor instead.
+func (*EventAttendaceResponse) Descriptor() ([]byte, []int) {
+	return file_protos_event_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *EventAttendaceResponse) GetAttendance() *Attendance {
+	if x != nil {
+		return x.Attendance
+	}
+	return nil
+}
+
+func (x *EventAttendaceResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+func (x *EventAttendaceResponse) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
 var File_protos_event_proto protoreflect.FileDescriptor
 
 const file_protos_event_proto_rawDesc = "" +
 	"\n" +
-	"\x12protos/event.proto\x12\x05eventB4Z2github.com/mainheartng/event_project/protos;protosb\x06proto3"
+	"\x12protos/event.proto\x12\x05event\x1a\x12protos/types.proto\"J\n" +
+	"\x12CreateEventRequest\x12\x12\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12 \n" +
+	"\vdescription\x18\x02 \x01(\tR\vdescription\"m\n" +
+	"\x13CreateEventResponse\x12\"\n" +
+	"\x05event\x18\x01 \x01(\v2\f.types.EventR\x05event\x12\x18\n" +
+	"\asuccess\x18\x02 \x01(\bR\asuccess\x12\x18\n" +
+	"\amessage\x18\x03 \x01(\tR\amessage\"J\n" +
+	"\x12UpdateEventRequest\x12\x12\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12 \n" +
+	"\vdescription\x18\x02 \x01(\tR\vdescription\"m\n" +
+	"\x13UpdateEventResponse\x12\"\n" +
+	"\x05event\x18\x01 \x01(\v2\f.types.EventR\x05event\x12\x18\n" +
+	"\asuccess\x18\x02 \x01(\bR\asuccess\x12\x18\n" +
+	"\amessage\x18\x03 \x01(\tR\amessage\"J\n" +
+	"\x12DeleteEventRequest\x12\x12\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12 \n" +
+	"\vdescription\x18\x02 \x01(\tR\vdescription\"I\n" +
+	"\x13DeleteEventResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x18\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage\"%\n" +
+	"\x13GetEventByIdRequest\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\"n\n" +
+	"\x14GetEventByIdResponse\x12\"\n" +
+	"\x05event\x18\x01 \x01(\v2\f.types.EventR\x05event\x12\x18\n" +
+	"\asuccess\x18\x02 \x01(\bR\asuccess\x12\x18\n" +
+	"\amessage\x18\x03 \x01(\tR\amessage\"\x82\x01\n" +
+	"\x15EventAttendaceRequest\x12\x17\n" +
+	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x19\n" +
+	"\bevent_id\x18\x02 \x01(\tR\aeventId\x125\n" +
+	"\n" +
+	"attendance\x18\x03 \x01(\x0e2\x15.types.AttendanceTypeR\n" +
+	"attendance\"\x7f\n" +
+	"\x16EventAttendaceResponse\x121\n" +
+	"\n" +
+	"attendance\x18\x01 \x01(\v2\x11.types.AttendanceR\n" +
+	"attendance\x12\x18\n" +
+	"\asuccess\x18\x02 \x01(\bR\asuccess\x12\x18\n" +
+	"\amessage\x18\x03 \x01(\tR\amessage2\xf8\x02\n" +
+	"\fEventService\x12D\n" +
+	"\vCreateEvent\x12\x19.event.CreateEventRequest\x1a\x1a.event.CreateEventResponse\x12D\n" +
+	"\vUpdateEvent\x12\x19.event.UpdateEventRequest\x1a\x1a.event.UpdateEventResponse\x12D\n" +
+	"\vDeleteEvent\x12\x19.event.DeleteEventRequest\x1a\x1a.event.DeleteEventResponse\x12G\n" +
+	"\fGetEventById\x12\x1a.event.GetEventByIdRequest\x1a\x1b.event.GetEventByIdResponse\x12M\n" +
+	"\x0eEventAttendace\x12\x1c.event.EventAttendaceRequest\x1a\x1d.event.EventAttendaceResponseB4Z2github.com/mainheartng/event_project/protos;protosb\x06proto3"
 
-var file_protos_event_proto_goTypes = []any{}
+var (
+	file_protos_event_proto_rawDescOnce sync.Once
+	file_protos_event_proto_rawDescData []byte
+)
+
+func file_protos_event_proto_rawDescGZIP() []byte {
+	file_protos_event_proto_rawDescOnce.Do(func() {
+		file_protos_event_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_protos_event_proto_rawDesc), len(file_protos_event_proto_rawDesc)))
+	})
+	return file_protos_event_proto_rawDescData
+}
+
+var file_protos_event_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+var file_protos_event_proto_goTypes = []any{
+	(*CreateEventRequest)(nil),     // 0: event.CreateEventRequest
+	(*CreateEventResponse)(nil),    // 1: event.CreateEventResponse
+	(*UpdateEventRequest)(nil),     // 2: event.UpdateEventRequest
+	(*UpdateEventResponse)(nil),    // 3: event.UpdateEventResponse
+	(*DeleteEventRequest)(nil),     // 4: event.DeleteEventRequest
+	(*DeleteEventResponse)(nil),    // 5: event.DeleteEventResponse
+	(*GetEventByIdRequest)(nil),    // 6: event.GetEventByIdRequest
+	(*GetEventByIdResponse)(nil),   // 7: event.GetEventByIdResponse
+	(*EventAttendaceRequest)(nil),  // 8: event.EventAttendaceRequest
+	(*EventAttendaceResponse)(nil), // 9: event.EventAttendaceResponse
+	(*Event)(nil),                  // 10: types.Event
+	(AttendanceType)(0),            // 11: types.AttendanceType
+	(*Attendance)(nil),             // 12: types.Attendance
+}
 var file_protos_event_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	10, // 0: event.CreateEventResponse.event:type_name -> types.Event
+	10, // 1: event.UpdateEventResponse.event:type_name -> types.Event
+	10, // 2: event.GetEventByIdResponse.event:type_name -> types.Event
+	11, // 3: event.EventAttendaceRequest.attendance:type_name -> types.AttendanceType
+	12, // 4: event.EventAttendaceResponse.attendance:type_name -> types.Attendance
+	0,  // 5: event.EventService.CreateEvent:input_type -> event.CreateEventRequest
+	2,  // 6: event.EventService.UpdateEvent:input_type -> event.UpdateEventRequest
+	4,  // 7: event.EventService.DeleteEvent:input_type -> event.DeleteEventRequest
+	6,  // 8: event.EventService.GetEventById:input_type -> event.GetEventByIdRequest
+	8,  // 9: event.EventService.EventAttendace:input_type -> event.EventAttendaceRequest
+	1,  // 10: event.EventService.CreateEvent:output_type -> event.CreateEventResponse
+	3,  // 11: event.EventService.UpdateEvent:output_type -> event.UpdateEventResponse
+	5,  // 12: event.EventService.DeleteEvent:output_type -> event.DeleteEventResponse
+	7,  // 13: event.EventService.GetEventById:output_type -> event.GetEventByIdResponse
+	9,  // 14: event.EventService.EventAttendace:output_type -> event.EventAttendaceResponse
+	10, // [10:15] is the sub-list for method output_type
+	5,  // [5:10] is the sub-list for method input_type
+	5,  // [5:5] is the sub-list for extension type_name
+	5,  // [5:5] is the sub-list for extension extendee
+	0,  // [0:5] is the sub-list for field type_name
 }
 
 func init() { file_protos_event_proto_init() }
@@ -40,18 +679,20 @@ func file_protos_event_proto_init() {
 	if File_protos_event_proto != nil {
 		return
 	}
+	file_protos_types_proto_init()
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_protos_event_proto_rawDesc), len(file_protos_event_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   0,
+			NumMessages:   10,
 			NumExtensions: 0,
-			NumServices:   0,
+			NumServices:   1,
 		},
 		GoTypes:           file_protos_event_proto_goTypes,
 		DependencyIndexes: file_protos_event_proto_depIdxs,
+		MessageInfos:      file_protos_event_proto_msgTypes,
 	}.Build()
 	File_protos_event_proto = out.File
 	file_protos_event_proto_goTypes = nil

@@ -3,3 +3,67 @@ syntax = "proto3";
 package event;
 
 option go_package = "github.com/mainheartng/event_project/protos;protos";
+
+import "protos/types.proto";
+
+service EventService {
+  rpc CreateEvent (CreateEventRequest) returns (CreateEventResponse);
+  rpc UpdateEvent (UpdateEventRequest) returns (UpdateEventResponse);
+  rpc DeleteEvent (DeleteEventRequest) returns (DeleteEventResponse);
+  rpc GetEventById (GetEventByIdRequest) returns (GetEventByIdResponse);
+  rpc EventAttendace (EventAttendaceRequest) returns (EventAttendaceResponse);
+}
+
+message CreateEventRequest {
+  string name = 1;
+  string description = 2;
+}
+
+message CreateEventResponse {
+  types.Event event = 1;
+  bool success = 2;
+  string message = 3;
+}
+
+message UpdateEventRequest {
+  string name = 1;
+  string description = 2;
+}
+
+message UpdateEventResponse {
+  types.Event event = 1;
+  bool success = 2;
+  string message = 3;
+}
+
+message DeleteEventRequest {
+  string name = 1;
+  string description = 2;
+}
+
+message DeleteEventResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message GetEventByIdRequest {
+  string id = 1;
+}
+
+message GetEventByIdResponse {
+  types.Event event = 1;
+  bool success = 2;
+  string message = 3;
+}
+
+message EventAttendaceRequest {
+  string user_id = 1;
+  string event_id = 2;
+  types.AttendanceType attendance = 3;
+}
+
+message EventAttendaceResponse {
+  types.Attendance attendance = 1;
+  bool success = 2;
+  string message = 3;
+}

@@ -279,19 +279,16 @@ func (AttendanceStatus) EnumDescriptor() ([]byte, []int) {
 type AttendanceEnum int32
 
 const (
-	AttendanceEnum_ENUM_ATTENDING AttendanceEnum = 0
-	AttendanceEnum_ENUM_CHECKEDIN AttendanceEnum = 1
+	AttendanceEnum_ENUM_CHECKEDIN AttendanceEnum = 0
 )
 
 // Enum value maps for AttendanceEnum.
 var (
 	AttendanceEnum_name = map[int32]string{
-		0: "ENUM_ATTENDING",
-		1: "ENUM_CHECKEDIN",
+		0: "ENUM_CHECKEDIN",
 	}
 	AttendanceEnum_value = map[string]int32{
-		"ENUM_ATTENDING": 0,
-		"ENUM_CHECKEDIN": 1,
+		"ENUM_CHECKEDIN": 0,
 	}
 )
 
@@ -726,7 +723,7 @@ func (x *Attendance) GetAttendance() AttendanceEnum {
 	if x != nil {
 		return x.Attendance
 	}
-	return AttendanceEnum_ENUM_ATTENDING
+	return AttendanceEnum_ENUM_CHECKEDIN
 }
 
 func (x *Attendance) GetCreatedAt() *timestamppb.Timestamp {
@@ -818,10 +815,9 @@ const file_protos_types_proto_rawDesc = "" +
 	"\x10AttendanceStatus\x12\x13\n" +
 	"\x0fSTATUS_APPROVED\x10\x00\x12\x11\n" +
 	"\rSTATUS_DENIED\x10\x01\x12\x14\n" +
-	"\x10STATUS_REQUESTED\x10\x02*8\n" +
+	"\x10STATUS_REQUESTED\x10\x02*$\n" +
 	"\x0eAttendanceEnum\x12\x12\n" +
-	"\x0eENUM_ATTENDING\x10\x00\x12\x12\n" +
-	"\x0eENUM_CHECKEDIN\x10\x01B4Z2github.com/mainheartng/event_project/protos;protosb\x06proto3"
+	"\x0eENUM_CHECKEDIN\x10\x00B4Z2github.com/mainheartng/event_project/protos;protosb\x06proto3"
 
 var (
 	file_protos_types_proto_rawDescOnce sync.Once
